@@ -54,7 +54,7 @@ jobs:
           git clone --depth 1 --branch ${{ env.SINGBOX_VERSION }} https://github.com/SagerNet/sing-box /tmp/sing-box
           cd /tmp/sing-box
           gomobile bind -v -androidapi 26 -javapkg=io.nekohasekai -libname=box \
-            -tags "with_gvisor,with_quic,with_wireguard,with_ech,with_utls,with_clash_api" \
+            -tags "with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api" \
             ./experimental/libbox/
           mkdir -p $GITHUB_WORKSPACE/app/libs
           cp libbox.aar $GITHUB_WORKSPACE/app/libs/

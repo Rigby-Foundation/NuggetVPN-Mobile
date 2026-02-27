@@ -53,7 +53,7 @@ gomobile bind -v \
   -androidapi 26 \
   -javapkg=io.nekohasekai \
   -libname=box \
-  -tags "with_gvisor,with_quic,with_wireguard,with_ech,with_utls,with_clash_api" \
+  -tags "with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api" \
   ./experimental/libbox
 ```
 

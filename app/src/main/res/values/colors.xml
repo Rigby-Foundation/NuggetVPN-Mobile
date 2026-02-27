@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nugget_primary">#1A1A2E</color>
+    <color name="nugget_primary_light">#E8E8EC</color>
+    <color name="nugget_accent_orange">#F97316</color>
+    <color name="nugget_accent_amber">#F59E0B</color>
+    <color name="nugget_red">#EF4444</color>
+    <color name="nugget_green">#22C55E</color>
+    <color name="nugget_bg_dark">#0F0F17</color>
+    <color name="nugget_bg_light">#FFFFFF</color>
+    <color name="nugget_surface_dark">#1A1A2E</color>
+    <color name="nugget_surface_light">#F7F7F8</color>
+    <color name="nugget_muted">#8B8B9E</color>
+</resources>

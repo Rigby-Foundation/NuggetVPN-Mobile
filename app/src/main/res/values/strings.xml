@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">NuggetVPN</string>
+    <string name="vpn_notification_channel">VPN Status</string>
+    <string name="vpn_connected">VPN Connected</string>
+    <string name="vpn_disconnected">VPN Disconnected</string>
+    <string name="vpn_connecting">Connecting…</string>
+    <string name="tab_connection">Connection</string>
+    <string name="tab_configuration">Configuration</string>
+    <string name="tab_proxies">Proxies</string>
+    <string name="tab_logs">Logs</string>
+    <string name="tab_settings">Settings</string>
+    <string name="add_profile">Add Profile</string>
+    <string name="import_subscription">Import Subscription</string>
+    <string name="no_profiles">No profiles added yet</string>
+    <string name="auto_select">Auto (Best ping)</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="settings_general">General</string>
+    <string name="settings_connection">Connection</string>
+    <string name="settings_tls">TLS</string>
+    <string name="settings_split_tunneling">Split Tunneling</string>
+</resources>

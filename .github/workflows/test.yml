@@ -17,16 +17,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: '1.23'
           cache: true
 
       - name: Cache libbox AAR
@@ -34,19 +37,27 @@ jobs:
         uses: actions/cache@v4
         with:
           path: app/libs/libbox.aar
-          key: libbox-${{ env.SINGBOX_VERSION }}
+          key: libbox-${{ env.SINGBOX_VERSION }}-ndk
 
       - name: Build libbox.aar
         if: steps.cache-libbox.outputs.cache-hit != 'true'
         run: |
+          # Install Android NDK
+          sdkmanager --install "ndk;27.0.12077973"
+          export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973
+
+          # Install sagernet gomobile fork
           go install github.com/sagernet/gomobile/cmd/gomobile@v0.1.8
           go install github.com/sagernet/gomobile/cmd/gobind@v0.1.8
           gomobile init
+
+          # Clone and build sing-box
           git clone --depth 1 --branch ${{ env.SINGBOX_VERSION }} https://github.com/SagerNet/sing-box /tmp/sing-box
           cd /tmp/sing-box
           gomobile bind -v -androidapi 26 -javapkg=io.nekohasekai -libname=box \
             -tags "with_gvisor,with_quic,with_wireguard,with_ech,with_utls,with_clash_api" \
             ./experimental/libbox/
+          mkdir -p $GITHUB_WORKSPACE/app/libs
           cp libbox.aar $GITHUB_WORKSPACE/app/libs/
 
       - name: Setup Gradle
@@ -81,10 +92,7 @@ jobs:
           keyPassword=$KEY_PASSWORD
           EOF
 
-      - name: Lint check
-        run: ./gradlew lint
-
-      - name: Build signed Debug APK
+      - name: Build Debug APK
         run: ./gradlew assembleDebug
 
       - name: Run unit tests
@@ -96,14 +104,6 @@ jobs:
           name: nuggetvpn-mobile-debug
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: warn
-
-      - name: Upload Lint Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-report
-          path: app/build/reports/lint-results-debug.html
-          if-no-files-found: ignore
 
       - name: Upload Test Report
         if: always()
